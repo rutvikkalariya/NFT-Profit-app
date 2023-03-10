@@ -63,6 +63,18 @@ class _HomePageRealState extends State<HomePageReal> {
     }
   }
 
+  _RoutePageData() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      sharedPreferences!.setInt("index", 4);
+      sharedPreferences!.setString(
+          "title", AppLocalizations.of(context)!.translate('coins') ?? '');
+      sharedPreferences!.commit();
+    });
+
+    Navigator.pushNamedAndRemoveUntil(context, '/homePage', (r) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,19 +147,24 @@ class _HomePageRealState extends State<HomePageReal> {
                       ),
                     ),
                   ),
-                  Align(
-                    child: Text(
-                      AppLocalizations.of(context)!.translate("newhome3")!,
-                      // overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: getColorFromHex("#F5C249"),
-                        fontSize: getFontSize(
-                          20,
+                  InkWell(
+                    onTap: () {
+                      _RoutePageData();
+                    },
+                    child: Align(
+                      child: Text(
+                        AppLocalizations.of(context)!.translate("newhome3")!,
+                        // overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: getColorFromHex("#F5C249"),
+                          fontSize: getFontSize(
+                            20,
+                          ),
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
                         ),
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
